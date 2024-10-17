@@ -184,9 +184,11 @@ void EstacionDeServicio::infoSurtidores() {
     }
     cout << "Surtidores de la estacion" << endl;
     for (int i = 0; i < numSurtidores; i++){
+        cout << "\n" << endl;
         cout << "Codigo del surtidor: " << surtidores[i].getcodigoSurtidor() << endl;
         cout << " Modelo del surtidor: " << surtidores[i].getmodeloMaquina() << endl;
         cout << " Estado: " << surtidores[i].getestado() << endl;
+        cout << "\n" << endl;
     }
 }
 
@@ -222,7 +224,7 @@ void EstacionDeServicio::reporteLitrosVendidos(){
     cout << "Cantidad de litros vendidos EcoExtra: " << catidadLitrosVendidosEcoExtra << endl;
 }
 
-void EstacionDeServicio::simularVenta(RedNacional& red){
+/*void EstacionDeServicio::simularVenta(RedNacional& red){
 
     int _codigoIdentificador;
     cout << "Ingrese el codigo de la estacion para simular la venta: " << endl;
@@ -312,7 +314,7 @@ void EstacionDeServicio::simularVenta(RedNacional& red){
 
     cout << "Simulacion realizada con exito en el surtidor " << surtidores[surtidorRandom].getcodigoSurtidor() << endl;
     surtidores[surtidorRandom].gettransacciones()[surtidores[surtidorRandom].getnumTransacciones() -1].mostrarInformacion();
-}
+}*/
 
 void EstacionDeServicio::verificarFugas(Tanque& tanque, Surtidor* surtidores, int numSurtidores) {
     int vendidoRegular = 0, vendidoPremium = 0, vendidoEcoExtra = 0;
