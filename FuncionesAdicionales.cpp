@@ -9,6 +9,7 @@ void gestionDeRed(RedNacional& red){
     unsigned short int opcion;
 
     do{
+        cout << "            ____ Menu de gestion de red ____" << endl;
         cout << "Seleccione 1 para agregar una estacion de servicio" << endl;
         cout << "Seleccione 2 para eliminar una estacion de servicio (Tenga en cuenta que todos los surtidores deben esta desactivados)" << endl;
         cout << "Seleccione 3 para calcular el monto total de las ventas en cada estacion de servicio discriminadas por categorias" << endl;
@@ -40,10 +41,15 @@ void gestionDeRed(RedNacional& red){
             cout << "Ingrese la region a la cual pertenece la estacion con mayuscula inicial (Norte, Centro, Sur): " << endl;
             cin >> region;
 
-            cout << "Ingrese la longitud para las coordenadas de la estacion: " << endl;
+            while(region != "Norte" && region != "Centro" && region != "Sur"){
+                cout << "Ingrese una de las tres regiones mencionadas (Norte, Centro, Sur, recuerde iniciar con mayuscula)." << endl;
+                cin >> region;
+            }
+
+            cout << "Ingrese la longitud para las coordenadas de la estacion (ejm: 41.40338): " << endl;
             cin >> longitud;
 
-            cout << "Ingrese la latitud para las coordenadas de la estacion: " << endl;
+            cout << "Ingrese la latitud para las coordenadas de la estacion (ejm: 2.17403): " << endl;
             cin >> latitud;
 
             red.agregarEstacionDeServicio(nombreEstacion, gerente, codigoIdentificador, longitud, latitud, region);
@@ -75,14 +81,23 @@ void gestionDeRed(RedNacional& red){
             cout << "Ingrese la region para la cual establecer los precios (Norte, Centro, Sur): " << endl;
             cin >> _region;
 
+            while(_region != "Norte" && _region != "Centro" && _region != "Sur"){
+                cout << "Ingrese una de las tres regiones mencionadas (Norte, Centro, Sur, recuerde iniciar con mayuscula)." << endl;
+                cin >> _region;
+            }
+
             cout << "Ingrese la categoria del combustible (Regular, Premium, EcoExtra): " << endl;
             cin >> _categoria;
+
+            unsigned short int pres = red.obtenerPrecioPorRegiones(_region, _categoria);
+            cout << "El precio actual de la gasolina en la region " << _region << " para la categoria "<< _categoria << " es: " << pres << endl;
 
             cout << "Ingrese el precio que desea establecer en dicha region de dicha categoria (ejm: 2000): " << endl;
             cin >> _precio;
 
             red.establecerPrecio(_region, _categoria, _precio);
             cout << "El precio se establecio correctamente para la region " << _region << " y la categoria " << _categoria << "." << endl;
+
             break;
         }
 
@@ -103,16 +118,16 @@ void gestionEstacionesDeServicio(RedNacional& red){
     unsigned short int opcion;
 
     do{
+        cout << "            ____ Menu de gestion de estaciones ____" << endl;
         cout << "Seleccione 1 para agregar o eliminar surtidor de una estacion de servicio" << endl;
         cout << "Seleccione 2 para activar o desactivar surtidor de una estacion de servicio" << endl;
         cout << "Seleccione 3 para consultar el historial de transacciones de cada surtidor de una estacion de servicio" << endl;
         cout << "Seleccione 4 para reportar la cantidad de litros vendida segun la categoria de combustible" << endl;
-        cout << "Seleccione 5 para simular una venta de combustible" << endl;
-        cout << "Seleccione 6 para asignar la capacidad del tanque de suministro" << endl;
-        cout << "Ingrese #7 para salir al menu inicial" << endl;
+        cout << "Seleccione 5 para asignar la capacidad del tanque de suministro" << endl;
+        cout << "Ingrese 6 para salir al menu inicial" << endl;
         cin >> opcion;
 
-        while (opcion > 7){
+        while (opcion > 6){
             cout << "Ingrese una opcion valida" << endl;
             cin >> opcion;
         }
@@ -138,8 +153,6 @@ void gestionEstacionesDeServicio(RedNacional& red){
                 break;
             }
 
-            cout << "Surtidores en la estacion de servicio" << codigo << endl;
-            estacion->infoSurtidores();
 
             int opcion;
             cout << "Opciones: " << endl;
@@ -155,13 +168,15 @@ void gestionEstacionesDeServicio(RedNacional& red){
                 cout << "Ingrese Modelo de maquina: ";
                 cin >> modeloMaquina;
                 estacion->agregarsurtidor(codigoSurtidor, modeloMaquina);
+                estacion->infoSurtidores();
 
             } else if (opcion == 2) {
                 int codigoSurtidor;
+                estacion->infoSurtidores();
                 cout << "Ingrese el codigo del surtidor a eliminar: ";
                 cin >> codigoSurtidor;
+
                 estacion->eliminarsurtidor(codigoSurtidor);
-                estacion->infoSurtidores();
 
             } else {
                 cout << "Opcion no valida." << endl;
@@ -247,16 +262,26 @@ void gestionEstacionesDeServicio(RedNacional& red){
         }
 
         case 5: {
-            simulacion(red);
+
+            cout << "La capacidad del tanque se generara automaticamente" << endl;
+            red.infoEstacionDeServicio();
+            int codigo;
+            cout << "Ingrese el codigo de la estacio1n de la cual desea consultar la capacidad del tanque: " << endl;
+            cin >> codigo;
+
+            EstacionDeServicio* estacion = red.EstacionEnRed(codigo);
+            if(estacion == nullptr){
+                cout << "La estación no se ha podido encontrar" << endl;
+                break;
+            }
+
+            estacion->gettanque().asignarCapacidadAleatoria();
+            cout << "Informacion del tanque de la estacion: " << codigo << endl;
+            estacion->gettanque().mostrarInfo();
             break;
         }
 
         case 6: {
-            cout << "La capacidad del tanque se inicializa de forma automatica en el momento de crear una estacion de servicio" << endl;
-            break;
-        }
-
-        case 7: {
             cout << "Saliendo del sistema..." << endl;
             break;
         }
@@ -265,18 +290,98 @@ void gestionEstacionesDeServicio(RedNacional& red){
             cout << "Opcion no valida" << endl;
         }
         }
-    }while(opcion != 7);
+    }while(opcion != 6);
 }
 
 void simulacion(RedNacional& red){
-    cout << "Las estaciones en servicio son: " << endl;
-    red.infoEstacionDeServicio();
-    int codigoEstacion;
-    cout << "Ingrese el codigo de la estacion para simular la venta" << endl;
-    cin >> codigoEstacion;
+    int _codigoIdentificador;
+    cout << "Ingrese el codigo de la estacion para simular la venta: " << endl;
+    cin >> _codigoIdentificador;
 
-    EstacionDeServicio* estacion = red.EstacionEnRed(codigoEstacion);
-    estacion->simularVenta(red);
+    EstacionDeServicio* estacion = red.EstacionEnRed(_codigoIdentificador);
+
+    if(estacion == nullptr){
+        cout << "Estacion no encontrada" << endl;
+        return;
+    }
+
+    if (estacion->surtidoresActivos() == 0) {
+        cout << "No se encuentran surtidores para realizar las transacciones." << endl;
+        return;
+    }
+
+    int surtidorRandom = -1;
+    int numSurtidores = estacion->getnumSurtidores();
+    Surtidor* surtidores = estacion->getSurtidores();
+
+    if(numSurtidores > 0){
+        bool found = false;
+        do{
+            int SurtidorIndex = rand()% numSurtidores;
+            if (surtidores[SurtidorIndex].getestado() == true){
+                surtidorRandom = SurtidorIndex;
+                found = true;
+            }
+        }while (!found);
+    }else {
+        cout << "No hay surtidores disponibles" << endl;
+    }
+
+    unsigned int cantidadLitros = 3 + rand() % 18;
+    string categoriaCombustible;
+    int categoriaRandom = rand() % 3;
+    switch (categoriaRandom) {
+    case 0: {
+        categoriaCombustible = "Regular";
+        break;
+    }
+
+    case 1: {
+        categoriaCombustible = "Premium";
+        break;
+    }
+
+    case 2: {
+        categoriaCombustible = "EcoExtra";
+        break;
+    }
+    }
+
+    string regionEstacion = estacion->getregion();
+    int precio = red.obtenerPrecioPorRegiones(regionEstacion, categoriaCombustible);
+
+    string metodoPago;
+    unsigned short int metodoPagoRandom = 1 + rand() % 3;
+    switch (metodoPagoRandom) {
+    case 1: {
+        metodoPago = "Efectivo";
+        break;
+    }
+
+    case 2: {
+        metodoPago = "TDebito";
+        break;
+    }
+
+    case 3: {
+        metodoPago = "TCredito";
+        break;
+    }
+    }
+
+
+    string documentoUsuario = "";
+    for (int i = 0; i < 6; i++) {
+        documentoUsuario += to_string(rand() % 10);
+    }
+
+    cantidadLitros = estacion->gettanque().gasolinaVendida(cantidadLitros, categoriaCombustible);
+    int cantidadDinero = cantidadLitros * precio;
+    surtidores[surtidorRandom].reportarTransaccion(cantidadLitros, cantidadDinero, metodoPago, documentoUsuario, categoriaCombustible);
+
+
+    cout << "Simulacion realizada con exito en el surtidor " << surtidores[surtidorRandom].getcodigoSurtidor() << endl;
+    surtidores[surtidorRandom].gettransacciones()[surtidores[surtidorRandom].getnumTransacciones() -1].mostrarInformacion();
 }
 
 void verificarFuga(RedNacional& red){
