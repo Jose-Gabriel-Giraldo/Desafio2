@@ -134,9 +134,13 @@ void RedNacional::infoEstacionDeServicio(){
     } else {
         cout << "Estaciones en servicio" << endl;
         for(int i = 0; i < cantidadEstaciones; i++){
+            cout << "\n";
             cout << "CodigoIdentificador: " << estaciones[i].getcodigoIdentificador() << endl;
             cout << "Nombre de la estacion: " << estaciones[i].getnombreEstacion() << endl;
             cout << "Region de la estacion: " << estaciones[i].getregion() << endl;
+            cout << "Gerente de la estacion: " << estaciones[i].getgerente() << endl;
+            cout << "Coordenadas GPS: " << "(" << estaciones[i].getlongitud() << "," << estaciones[i].getlatitud() << ")" << endl;
+            cout << "\n";
         }
     }
 }
