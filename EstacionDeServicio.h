@@ -7,7 +7,6 @@
 
 using namespace std;
 
-class RedNacional;
 class EstacionDeServicio
 {
 private:
@@ -46,15 +45,15 @@ public:
     void setTanque(Tanque& nuevotanque);
 
     //Funciones Adicionales
-    void agregarsurtidor(int codigoSurtidor, string modeloMaquina);
+    void agregarsurtidor(int codigoSurtidor, string modeloMaquina, bool estado);
     void eliminarsurtidor(int codigoSurtidor);
-    void activar_desactivarSurtidor(int codigoSurtidor, bool estado);
+    void activar_desactivarSurtidor(int codigoSurtidor, string actividad);
     void calcularTransacciones();
     void infoSurtidores();
     void historialTransacciones(int posicion);
     void reporteLitrosVendidos();
-    void simularVenta(RedNacional& red);
     void verificarFugas(Tanque& tanque, Surtidor* surtidores, int numSurtidores);
+    bool existeSurtidor(int codigoSurtidor);
 };
 
 #endif // ESTACIONDESERVICIO_H
