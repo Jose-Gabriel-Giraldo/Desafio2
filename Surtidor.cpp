@@ -1,4 +1,5 @@
 #include "surtidor.h"
+#include "transacciones.h"
 #include <iostream>
 
 using namespace std;
@@ -6,11 +7,6 @@ using namespace std;
 Surtidor::Surtidor(int codigoSurtidor, string modeloMaquina, bool estado)
     : codigoSurtidor(codigoSurtidor), modeloMaquina(modeloMaquina), numTransacciones(0), estado(estado){
 }
-
-void Surtidor::activarSurtidor_desactivarSurtidor(bool estado){
-    estado = estado;
-}
-
 
 void Surtidor::reportarTransaccion(int cantidadLitros, long int cantidadDinero, const string& metodoDePago, const string& documentoUsuario, const string& categoriaCombustible){
     transacciones[numTransacciones];
@@ -43,6 +39,23 @@ int Surtidor::getcodigoSurtidor(){
 string Surtidor::getmodeloMaquina(){
     return modeloMaquina;
 }
+
+bool Surtidor::getestado() {
+    return estado;
+}
+
+void Surtidor::setestado(bool _estado){
+    estado = _estado;
+}
+
+void Surtidor::setcodigoSurtidor(int _codigoSurtidor){
+    codigoSurtidor = _codigoSurtidor;
+}
+
+void Surtidor::setmodeloMaquina(string _modeloMaquina){
+    modeloMaquina = _modeloMaquina;
+}
+
 
 bool Surtidor::getestado() {
     return estado;
