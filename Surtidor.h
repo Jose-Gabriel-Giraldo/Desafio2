@@ -17,7 +17,7 @@ private:
 public:
 
     //Constructor
-    Surtidor(int _codigoSurtidor = 0, string _modeloMaquina = "", bool _estado = true);
+    Surtidor(int codigoSurtidor = 0, string modeloMaquina = "", bool estado = true);
 
     //Getters
     int getcodigoSurtidor();
@@ -40,4 +40,3 @@ public:
 };
 
 #endif // SURTIDOR_H
-
