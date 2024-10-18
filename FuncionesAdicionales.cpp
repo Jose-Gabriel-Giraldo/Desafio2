@@ -163,11 +163,12 @@ void gestionEstacionesDeServicio(RedNacional& red){
             if (opcion == 1) {
                 int codigoSurtidor;
                 string modeloMaquina;
+                bool estado = true;
                 cout << "Ingrese el codigo del nuevo surtidor: ";
                 cin >> codigoSurtidor;
                 cout << "Ingrese Modelo de maquina: ";
                 cin >> modeloMaquina;
-                estacion->agregarsurtidor(codigoSurtidor, modeloMaquina);
+                estacion->agregarsurtidor(codigoSurtidor, modeloMaquina, estado);
                 estacion->infoSurtidores();
 
             } else if (opcion == 2) {
@@ -214,11 +215,11 @@ void gestionEstacionesDeServicio(RedNacional& red){
             cout << "Ingrese el codigo del surtidor que desea activar o desactivar" << endl;
             cin >> codigoSurtidor;
 
-            bool estado;
+            string actividad;
             cout << "Ingrese A para activar o D para desactivar el surtidor: " << endl;
-            cin >> estado;
+            cin >> actividad;
 
-            estacion->activar_desactivarSurtidor(codigoSurtidor, estado);
+            estacion->activar_desactivarSurtidor(codigoSurtidor, actividad);
             break;
 
         }
