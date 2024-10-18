@@ -8,6 +8,7 @@ using namespace std;
 Tanque::Tanque() {}
 
 void Tanque::mostrarInfo(){
+
     cout << "Gasolina en el tanque" << endl;
     cout << "Capacidad inicial en el tanque Regular: " << capacidadInicialRegular << " litros" << endl;
     cout << "Capacidad inicial en el tanque Premium: " << capacidadInicialPremium << " litros" << endl;
