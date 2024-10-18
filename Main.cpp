@@ -17,12 +17,14 @@ int main()
 
     do {
         cout << "Bienvenido al sistema de comercio TerMax" << endl;
-        cout << "______Menu______ " << endl;
+        cout << "\n";
+        cout << "                        _____ Menu _____" << endl;
+        cout << "\n";
         cout << "Seleccione 1 para acceder a los servicios de gestion de red." << endl;
         cout << "Seleccione 2 para acceder a los servicios de gestion de estaciones de servicio." << endl;
         cout << "Seleccione 3 para acceder a la opcion de sistema nacional de verificacion de fugas." << endl;
         cout << "Seleccione 4 para acceder a la opcion de simulacion de ventas." << endl;
-        cout << "Ingrese un #5 para salir." << endl;
+        cout << "Ingrese un 5 para salir." << endl;
         cin >> opcion;
 
         switch (opcion) {
@@ -56,3 +58,4 @@ int main()
 
     return 0;
 }
+
